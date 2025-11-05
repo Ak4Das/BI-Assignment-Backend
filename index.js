@@ -102,6 +102,38 @@ app.get("/events", async (req, res) => {
   }
 })
 
+// UPDATE EVENT BY ID
+async function updateEvent(id, dataToUpdate) {
+  try {
+    const updatedEvent = await eventModel.findByIdAndUpdate(
+      id,
+      dataToUpdate,
+      {
+        new: true,
+      }
+    )
+    return updatedEvent
+  } catch (error) {
+    throw error
+  }
+}
+app.use(express.json())
+app.post("/updateEventById/:id", async (req, res) => {
+  try {
+    const updatedEvent = await updateEvent(
+      req.params.id,
+      req.body
+    )
+    if (updatedEvent) {
+      res.json(updatedEvent)
+    } else {
+      console.log("Event not found.");
+    }
+  } catch (error) {
+    throw error
+  }
+})
+
 // START SERVER
 const PORT = 3000
 app.listen(PORT, () => console.log("Server start at port: ", PORT))
