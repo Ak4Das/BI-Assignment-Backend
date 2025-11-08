@@ -55,6 +55,11 @@ const eventSchema = new mongoose.Schema(
         position: String
       },
     ],
+    eventTags:[
+      {
+        type:String
+      }
+    ]
   },
   {
     timestamps: true,
